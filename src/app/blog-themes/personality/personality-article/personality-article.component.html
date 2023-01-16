@@ -1,0 +1,35 @@
+<app-header-simple [headerInfo]="header"></app-header-simple>
+<div class="blog-wrapper" *ngIf="blog">
+    <header class="blog-title">
+        <h1>{{blog.title}}</h1>
+    </header>
+    <div class="blog-content">
+        <div class="blog-title">
+            <!-- <img class="personality-picture" src="data:image/png;base64,{{blog.image}}" alt="{{blog.title}}" title="{{blog.title}}" height="600" width="600"> -->
+            <img class="personality-picture" src="../../assets/enzo-ferrari-modena-bio-bn.jpeg" alt="{{blog.title}}"
+                title="{{blog.title}}" height="600" width="600">
+        </div>
+        <div class="paragraph">
+            <div class="brief">
+                <p class="standard">
+                    <span>
+                        {{blog.brief}}
+                    </span>
+                </p>
+            </div>
+            <div class="content">
+                <div class="text" *ngFor="let cnt of blog.content">
+                    <p class="title">{{cnt.title}}</p>
+                    <p class="description">{{cnt.description}}</p>
+                </div>
+            </div>
+            <div *ngIf="blog.conclusion" class="conclusion">
+                {{blog.conclusion}}
+            </div>
+            <div *ngIf="blog.authorName" class="author-detail">
+                <div>{{blog.authorName}}</div>
+                <div>{{blog.authorEmail}}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+input, textarea{
+    &::placeholder{
+        text-align: center;
+    }
+}
+.featured-image{
+    // background-image: url(../../assets/baby.png);
+    background-repeat: no-repeat;
+    background-size: 20% 80%;
+}
+img{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+article{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    .brief{
+        // font-size: 24px;
+        // line-height: 1.3;
+        // margin-bottom: 30px;
+        // padding-left: 20px;
+        // border-left: 2px solid #000;
+    }
+    .summary{
+        font-size: 2em;
+        color: dimgray;
+        font-style: italic;
+    }
+    .content-area{
+        font-size: 1.5em;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        .content{
+            .heading{
+                text-decoration: underline;
+                font-size: 1.3em;
+            }
+        }
+    }
+    div div{
+        .image-box{
+            border: 2px dotted magenta;
+                    padding: 50px;
+                    color: hotpink;
+                    display: block;
+                    text-align: center;
+                    cursor: pointer;
+            &:hover{
+                background-color: lightgray;
+            }
+        }
+    }
+}

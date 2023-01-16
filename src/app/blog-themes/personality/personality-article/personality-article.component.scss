@@ -1,0 +1,79 @@
+.blog-wrapper{
+    background: #fff;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #1d1d1b;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;   
+    max-width: 75rem;
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace;    
+    margin: 0 auto;
+    margin-top: 24px;
+    text-align: justify;
+    header.blog-title{
+        margin-bottom: 40px;
+        font-size: 70px;
+        line-height: .9;
+        font-family: fantasy;
+    }
+    .blog-content{
+        position: relative;
+        width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: nowrap;
+        -moz-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        .blog-title{
+            width: 33.33%;
+            font-size: 60px;
+            line-height: .9;
+            .personality-picture{
+                display: block;
+                height: auto;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 100%;
+            }
+        }
+        .paragraph{
+            width: 66.66%;
+            padding-left: 50px;
+            padding-top: 10px;
+            .brief{
+                font-size: 24px;
+                line-height: 1.3;
+                margin-bottom: 30px;
+                padding-left: 20px;
+                border-left: 2px solid #000;
+            }
+            .content{
+                font-size: 18px;
+                .text{
+                    margin-bottom: 20px;
+                    .title{
+                        font-size: 22px;
+                    }
+                }
+            }
+        }
+    }
+}
+a{
+    color: #ff4a4a;
+    text-decoration: none;
+    transition-property: all;
+    -webkit-transition-property: all;
+    transition-duration: .3s;
+    -webkit-transition-duration: .3s;
+    &:link, &:active, &:focus{
+        outline-color: -moz-use-text-color;
+        outline-style: none;
+        outline-width: 0;
+    }
+}

@@ -1,0 +1,366 @@
+{
+	"screenVersion": "v2",
+	"name": "orderEntry",
+	"groups": [{
+		"controls": [{
+			"defaultValue": {},
+			"label": "Purchase order",
+			"parentNode": "purchaseOrder",
+			"textCaps": true,
+			"type": "text",
+			"required": true,
+			"component": "GENERIC_FIELD_V2",
+			"options": [],
+			"name": "purchaseOrder",
+			"cols": ["4", "4", "6", "6", "12"],
+			"validation": ["Mandatory", "NoSpecialCharacter"],
+			"placeHolder": "Enter PO number",
+			"maxLength": "240"
+		}, {
+			"defaultValue": {
+				"displayValue": "Inbound",
+				"value": "INBOUND"
+			},
+			"sortable": false,
+			"parentNode": "other[payerState]",
+			"label": "Order type",
+			"makeDwarf": false,
+			"type": "dropdown",
+			"required": true,
+			"component": "DROPDOWN_DEFAULT_V2",
+			"name": "orderType",
+			"options": [{
+				"displayValue": "Inbound",
+				"value": "INBOUND"
+			}, {
+				"displayValue": "Outbound",
+				"value": "OUTBOUND"
+			}, {
+				"displayValue": "Return",
+				"value": "RETURN"
+			}],
+			"cols": ["4", "4", "6", "6", "12"],
+			"validation": ["SelectFromList"],
+			"placeHolder": "Order type"
+		}],
+		"name": "orderDetails",
+		"label": "General Information"
+	}, {
+		"controls": [{
+			"defaultValue": {},
+			"primaryText": ["locationId", "locationName"],
+			"responseData": "locations",
+			"label": "Origin",
+			"textCaps": true,
+			"parentNode": "origin",
+			"type": "SOURCE",
+			"required": true,
+			"preferredLocation": {
+				"preferenceType": "originLocation",
+				"apiUrl": "/userpreferenceservice/preferences?userId=",
+				"name": "preferredOrigin",
+				"action": "CREATE_ORDER"
+			},
+			"url": "/orderservice/locationSearch?customerCode=",
+			"secondaryText": ["addressLine", "city", "postalCode", "countryCode"],
+			"component": "LOCATION_AUTOCOMPLETE_V2",
+			"linkToMap": true,
+			"options": [],
+			"name": "origin",
+			"lineNumber": false,
+			"cols": ["3", "3", "6", "12", "12"],
+			"validation": ["Mandatory", "Select from list", "NotEqualTo-destination"],
+			"placeHolder": "Type name or address of pickup location"
+		}, {
+			"defaultValue": {},
+			"primaryText": ["locationId", "locationName"],
+			"responseData": "locations",
+			"label": "Destination",
+			"textCaps": true,
+			"parentNode": "destination",
+			"type": "DESTINATION",
+			"required": true,
+			"preferredLocation": {
+				"preferenceType": "destinationLocation",
+				"apiUrl": "/userpreferenceservice/preferences?userId=",
+				"name": "preferredDestination",
+				"action": "CREATE_ORDER"
+			},
+			"url": "/orderservice/locationSearch?customerCode=",
+			"secondaryText": ["addressLine", "city", "postalCode", "countryCode"],
+			"component": "LOCATION_AUTOCOMPLETE_V2",
+			"linkToMap": true,
+			"options": [],
+			"name": "destination",
+			"lineNumber": false,
+			"cols": ["3", "3", "6", "12", "12"],
+			"validation": ["Mandatory", "Select from list", "NotEqualTo-origin"],
+			"placeHolder": "Type name or address of delivery location"
+		}, {
+			"pastDate": false,
+			"defaultValue_org": "12/02/2021",
+			"defaultValue": {},
+			"label": "Requested Pick Up Date",
+			"parentNode": "transportationDetails[earlyPickupDate]",
+			"textCaps": false,
+			"type": "text",
+			"required": true,
+			"component": "DATEPICKER_V2",
+			"options": [],
+			"name": "earlyPickupDate",
+			"disabled": false,
+			"cols": ["3", "3", "6", "6", "12"],
+			"validation": ["before-lateDeliveryDate"],
+			"placeHolder": "MM/DD/YYYY"
+		}, {
+			"pastDate": false,
+			"defaultValue": {},
+			"label": "Requested Delivery Date",
+			"parentNode": "transportationDetails[lateDeliveryDate]",
+			"textCaps": false,
+			"type": "text",
+			"required": true,
+			"component": "DATEPICKER_V2",
+			"options": [],
+			"name": "lateDeliveryDate",
+			"disabled": false,
+			"cols": ["3", "3", "6", "6", "12"],
+			"validation": ["after-earlyPickupDate"],
+			"placeHolder": "MM/DD/YYYY"
+		}, {
+			"defaultValue": {},
+			"label": "",
+			"textCaps": false,
+			"type": "hidden",
+			"required": false,
+			"component": "HIDDEN",
+			"linkToMap": false,
+			"options": [],
+			"name": "destinationId",
+			"lineNumber": false,
+			"cols": ["2", "2", "2", "2", "2"],
+			"validation": [],
+			"placeHolder": "",
+			"maxLength": "240"
+		}, {
+			"defaultValue": {},
+			"label": "",
+			"textCaps": false,
+			"type": "hidden",
+			"required": false,
+			"component": "HIDDEN",
+			"linkToMap": false,
+			"options": [],
+			"name": "originId",
+			"lineNumber": false,
+			"cols": ["2", "2", "2", "2", "2"],
+			"validation": [],
+			"placeHolder": "",
+			"maxLength": "240"
+		}],
+		"name": "Pickup and Delivery",
+		"label": "Pickup and Delivery"
+	}, {
+		"controls": [{
+			"controls": [{
+				"component": "ORDER_ITEM_AUTOCOMPLETE_V2",
+				"primaryText": ["itemId", "itemName"],
+				"defaultValue": "",
+				"options": [],
+				"name": "packagedItem",
+				"label": "Item name",
+				"textCaps": true,
+				"cols": ["2", "2", "4", "6", "12"],
+				"required": true,
+				"validation": ["Mandatory", "SelectFromList"],
+				"placeHolder": "Type id or name of item"
+			}, {
+				"defaultValue": "",
+				"label": "Item count",
+				"parentNode": "itemQuantity",
+				"textCaps": true,
+				"type": "number",
+				"required": true,
+				"component": "GENERIC_FIELD_V2",
+				"options": [],
+				"name": "itemQuantity",
+				"disabled": false,
+				"cols": ["2", "2", "4", "6", "12"],
+				"validation": ["Mandatory", "Numeric"],
+				"placeHolder": "Item count",
+				"maxLength": "240"
+			}, {
+				"defaultValue": {},
+				"sortable": false,
+				"parentNode": "other[payerState]",
+				"label": "Handling unit",
+				"makeDwarf": false,
+				"type": "dropdown",
+				"required": true,
+				"component": "DROPDOWN_DEFAULT_V2",
+				"name": "packagingUnit",
+				"options": [{
+					"displayValue": "Case",
+					"value": "CASE"
+				}, {
+					"displayValue": "Each",
+					"value": "EA"
+				}, {
+					"displayValue": "Pallet",
+					"value": "PALLET"
+				}],
+				"disabled": false,
+				"placeholder": "Handling unit",
+				"cols": ["2", "2", "4", "6", "12"],
+				"validation": ["SelectFromList"]
+			}, {
+				"defaultValue": "",
+				"label": "HU count",
+				"parentNode": "packageCount",
+				"textCaps": true,
+				"type": "number",
+				"required": true,
+				"component": "GENERIC_FIELD_V2",
+				"options": [],
+				"name": "packageCount",
+				"disabled": false,
+				"cols": ["2", "2", "4", "6", "12"],
+				"validation": ["Mandatory", "Numeric"],
+				"placeHolder": "HU count",
+				"maxLength": "240"
+			}, {
+				"defaultValue": "",
+				"label": "Total weight (lb)",
+				"parentNode": "totalWeight",
+				"textCaps": true,
+				"type": "number",
+				"required": true,
+				"component": "GENERIC_FIELD_V2",
+				"options": [],
+				"name": "totalWeight",
+				"disabled": false,
+				"cols": ["2", "2", "4", "6", "12"],
+				"validation": ["Mandatory", "Decimal"],
+				"placeHolder": "Total weight"
+			}, {
+				"defaultValue": "",
+				"label": "Total vol (cuft)",
+				"parentNode": "totalVolume",
+				"textCaps": true,
+				"type": "number",
+				"required": true,
+				"component": "GENERIC_FIELD_V2",
+				"options": [],
+				"name": "totalVolume",
+				"disabled": false,
+				"cols": ["2", "2", "4", "6", "12"],
+				"validation": ["Mandatory", "Decimal"],
+				"placeHolder": "Total vol"
+			}, {
+				"component": "HIDDEN",
+				"defaultValue": {},
+				"options": [],
+				"name": "packagedItemId",
+				"label": "",
+				"textCaps": false,
+				"type": "hidden",
+				"cols": ["2", "2", "2", "2", "2"],
+				"required": false,
+				"validation": [],
+				"placeHolder": "",
+				"maxLength": "240"
+			}],
+			"defaultValue": {},
+			"label": "Line item",
+			"textCaps": false,
+			"type": "items",
+			"required": false,
+			"component": "TABLE_V2",
+			"linkToMap": false,
+			"options": [],
+			"name": "orderLines",
+			"lineNumber": true,
+			"cols": ["12", "12", "12", "12", "12"],
+			"validation": ["OneOrMoreLines"],
+			"placeHolder": ""
+		}],
+		"name": "lineItems",
+		"label": "Line Items"
+	}, {
+		"controls": [{
+			"defaultValue": {},
+			"label": "Bill of lading",
+			"parentNode": "Value",
+			"textCaps": true,
+			"type": "text",
+			"required": false,
+			"component": "GENERIC_FIELD_V2",
+			"linkToMap": false,
+			"options": [],
+			"name": "refNums",
+			"disabled": false,
+			"cols": ["6", "6", "6", "6", "12"],
+			"validation": ["NoSpecialCharacter"],
+			"placeHolder": "Enter Bill of lading",
+			"maxLength": "240"
+		}, {
+			"defaultValue": {},
+			"label": "Special instructions",
+			"parentNode": "Value",
+			"textCaps": true,
+			"type": "text",
+			"required": false,
+			"component": "GENERIC_FIELD_V2",
+			"linkToMap": false,
+			"options": [],
+			"name": "remarks",
+			"disabled": false,
+			"cols": ["6", "6", "6", "6", "12"],
+			"validation": ["NoSpecialCharacter"],
+			"placeHolder": "Enter special instructions",
+			"maxLength": "240"
+		}],
+		"name": "referencesAndRemarks",
+		"label": "References and Remarks"
+	}],
+	"header": {
+		"stepper": {
+			"cols": ["6", "6", "6", "12", "12"],
+			"labels": []
+		},
+		"action": {
+			"handler": "parent",
+			"details": [{
+				"view": {
+					"buttonType": "secondary",
+					"label": "Reset",
+					"type": "button"
+				},
+				"name": "reset",
+				"toolTip": "Reset",
+				"type": "reset",
+				"cols": ["6", "6", "6", "6", "6"]
+			}, {
+				"view": {
+					"buttonType": "primary",
+					"label": "Create Order",
+					"type": "button"
+				},
+				"name": "orderCreate",
+				"toolTip": "Create new order",
+				"type": "submit",
+				"cols": ["6", "6", "6", "6", "6"],
+				"command": {
+					"redirectUrl": "/orders/listing",
+					"url": "/orderservice/createOrder"
+				}
+			}],
+			"cols": ["3", "3", "6", "12", "12"]
+		},
+		"title": {
+			"maintitle": "Create Order",
+			"subtitle": "",
+			"cols": ["3", "3", "6", "12", "12"]
+		}
+	}
+}

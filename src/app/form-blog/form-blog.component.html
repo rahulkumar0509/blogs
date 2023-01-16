@@ -1,0 +1,197 @@
+<!-- Starting the revolution!! -->
+<!-- 3d interactive blog, like clicking 4 time to perform some action -->
+<main>
+    <form [formGroup]="personalityForm" (ngSubmit)="onSubmit()">
+        <div style="width: 80%;
+        margin-left: auto;
+        margin-right: auto;">
+            <div style="padding:24px;text-align: center;">
+                <input type="text" style="border: 2px dotted magenta;
+                    color: hotpink;
+                    font-size: 24px;
+                    width: 100%;
+                    padding:10px;" placeholder="Provide Blog's title." formControlName="title">
+            </div>
+            <div style="padding:24px;text-align: center;">
+                <select placeholder="Provide Blog's type." formControlName="type" style="border: 2px dotted magenta;
+                    color: hotpink;
+                    font-size: 24px;
+                    width: 50%;
+                    padding:10px;">
+                    <option value="food">food</option>
+                    <option value="personality">personality</option>
+                </select>
+            </div>
+            <div style="padding:24px;text-align: center;">
+                <input type="text" style="border: 2px dotted magenta;
+                    color: hotpink;
+                    font-size: 24px;
+                    width: 50%;
+                    padding:10px;" placeholder="Provide Blog's subtype." formControlName="subtype">
+            </div>
+            <div style="padding:24px;text-align: center;">
+                <select multiple placeholder="Provide Blog's type." formControlName="tags" style="border: 2px dotted magenta;
+                    color: hotpink;
+                    font-size: 24px;
+                    width: 50%;
+                    padding:10px;">
+                    <option style="display: inline;
+                    padding: 10px;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    background: transparent;
+                    margin: 10px;" value="veg">veg</option>
+                    <option style="display: inline;
+                    padding: 10px;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    background: transparent;
+                    margin: 10px;" value="indian">indian</option>
+                    <option style="display: inline;
+                    padding: 10px;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    background: transparent;
+                    margin: 10px;" value="non-veg">non-veg</option>
+                    <option style="display: inline;
+                    padding: 10px;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    background: transparent;
+                    margin: 10px;" value="vegan">vegan</option>
+                    <option style="display: inline;
+                    padding: 10px;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    background: transparent;
+                    margin: 10px;" value="Instant food">Instant food</option>
+                    <option style="display: inline;
+                    padding: 10px;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    background: transparent;
+                    margin: 10px;" value="vegan">vegan</option>
+            
+                </select>
+            </div>
+            <div style="padding:24px;text-align: center;">
+                <input type="text" style="border: 2px dotted magenta;
+                    color: hotpink;
+                    font-size: 24px;
+                    width: 100%;
+                    padding:10px;" placeholder="Provide Blog's slogan." formControlName="slogan">
+            </div>
+            <article>
+                <div>
+                    <div style="padding-bottom: 24px">
+                        <div #imageUpload>
+                            <label class="image-box" style="color: dimgray;
+                        font-size: 24px;">
+                                <input (change)="uploadImage($event)" style="display: none;" type="file"
+                                    id="uploadImage" accept="image/gif, image/jpeg, image/png, image/webp" formControlName="image">
+                                Upload Featured image.
+                                <div>
+                                    Try to use landscape image.
+                                </div>
+                            </label>
+                        </div>
+                        <div style="display: none" #imageSpace class="image-block-space">
+                            <div>
+                                <button type="button" (click)="bringBackUploadImage()">Remove</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="padding-bottom: 24px" formGroupName="brief" class="brief">
+                        <input type="text" style="border: 2px dotted magenta;
+                            color: hotpink;
+                            font-size: 24px;
+                            width: 100%;" placeholder="Provide brief's paragraph 1."
+                            formControlName="title">
+                        <textarea rows="4" cols="100" style="border: 2px dotted magenta;
+                            font-style: italic;
+                            font-size: 24px;
+                            width: 100%;" placeholder="Provide some brief paragraph 2."
+                            formControlName="introduction"></textarea>
+
+                    </div>
+                    <div formArrayName="content">
+                        <div *ngFor="let control of getContentForm().controls;let i =index" class="content-area-1" style="padding-bottom: 24px;">
+                            <div [formGroupName]="i" class="content" style="width: 100%;">
+                                <div style="padding-bottom: 16px;">
+                                    <input type="text" style="border: 2px dotted magenta;
+                                    color: hotpink;
+                                    font-size: 24px;
+                                    width: 85%;" placeholder="Provide Content's title."
+                                    formControlName="title">
+                                    <select formControlName="contentType" style="border: 2px dotted magenta;
+                                    color: hotpink;
+                                    font-size: 24px;
+                                    margin-left: 24px;
+                                    width: 10%;">
+                                        <option value="text">text</option>
+                                        <option value="ul">ul</option>
+                                        <option value="ol">ol</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <textarea rows="10" cols="100" style="border: 2px dotted magenta;
+                                        color: goldenrod;
+                                        font-size: 24px;
+                                        width: 100%;" placeholder="This one meant for 1st paragraph having medium one"
+                                        formControlName="description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding-bottom: 32px;text-align: right;">
+                        <button (click)="addNewContent()" style="border: 1px dotted magenta;padding: 10px;cursor:pointer" type="button">Add new paragraph</button>
+                    </div>
+                    
+                    <div class="summary" style="padding-bottom: 28px;">
+                        <textarea rows="5" cols="100" style="border: 2px dotted magenta;
+                            font-style: italic;
+                            color: dimgray;
+                            font-size: 24px;
+                            width: 100%;" placeholder="Provide now the conclusion."
+                            formControlName="conclusion"></textarea>
+                    </div>
+                    <div class="author" style="padding-bottom: 24px;text-align: center;">
+                        <div style="padding-bottom: 24px">
+                            <input type="text" placeholder="Author's Name" style="
+                                font-size: 24px;
+                                width: 50%;
+                                padding: 10px;
+                                border-radius: 5px;
+                                color: dimgray;
+                                border:2px dotted magenta" 
+                                formControlName="authorName"/>
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Author's Email Address" style="
+                                font-size: 24px;
+                                width: 50%;
+                                padding: 10px;
+                                border-radius: 5px;
+                                color: dimgray;
+                                border:2px dotted magenta" 
+                                formControlName="authorEmail"/>
+                        </div>
+                        <div class="social-media-footprint">
+
+                        </div>
+                    </div>
+                    <div class="content-submission" style="text-align: center;">
+                        <button type="text" style="border: 3px magenta;
+                        border-style: double;
+                        background-color: white;
+                        padding: 20px;
+                        font-size: 27px;
+                        cursor: pointer;
+                        color: hotpink;">Make it happen</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </form>
+</main>
